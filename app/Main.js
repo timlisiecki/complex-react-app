@@ -23,6 +23,7 @@ import About from './components/About';
 import Terms from './components/Terms';
 import NotFound from './components/NotFound';
 import Search from './components/Search';
+import Chat from './components/Chat';
 import Footer from './components/Footer';
 
 function Main() {
@@ -35,6 +36,8 @@ function Main() {
 			avatar: localStorage.getItem('complexappAvatar'),
 		},
 		isSearchOpen: false,
+		isChatOpen: false,
+		unreadChatCount: 0,
 	};
 	function ourReducer(draft, action) {
 		switch (action.type) {
@@ -53,6 +56,18 @@ function Main() {
 				break;
 			case 'closeSearch':
 				draft.isSearchOpen = false;
+				break;
+			case 'toggleChat':
+				draft.isChatOpen = !draft.isChatOpen;
+				break;
+			case 'closeChat':
+				draft.isChatOpen = false;
+				break;
+			case 'incrementUnreadChatCount':
+				draft.unreadChatCount++;
+				break;
+			case 'clearUnreadChatCount':
+				draft.unreadChatCount = 0;
 				break;
 		}
 	}
@@ -105,6 +120,7 @@ function Main() {
 					<CSSTransition timeout={330} in={state.isSearchOpen} classNames='search-overlay' unmountOnExit>
 						<Search />
 					</CSSTransition>
+					<Chat />
 					<Footer />
 				</BrowserRouter>
 			</DispatchContext.Provider>
