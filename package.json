@@ -4,8 +4,12 @@
 	"description": "",
 	"main": "test.js",
 	"scripts": {
-		"dev": "webpack-dev-server",
-		"start": "webpack"
+		"dev": "npm-run-all -s generate webpackDev",
+		"webpackDev": "webpack-dev-server",
+		"build": "npm-run-all -s generate webpackBuild",
+		"webpackBuild": "webpack",
+		"generate": "babel-node --presets=@babel/preset-react,@babel/preset-env generateHtml.js",
+		"start": "node previewDist"
 	},
 	"keywords": [],
 	"author": "Tim Lisiecki",
